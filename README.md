@@ -5,20 +5,48 @@
 ## 技术栈
 
 - **前端**: Next.js 16 + React 19 + TypeScript + Tailwind CSS 4
-- **数据库**: SQLite (via Prisma ORM + libsql adapter)
-- **部署**: 本地 Node.js
+- **数据库**: PostgreSQL (Neon 云数据库 via Prisma ORM)
+- **部署**: Vercel
 
 ## 快速开始
 
+### 1. 克隆项目
+
 ```bash
-# 安装依赖
+git clone https://github.com/Leejohn197/Software_test.git
+cd Software_test
 npm install
+```
 
-# 初始化数据库 + 种子数据
-npx prisma migrate dev --name init
-sqlite3 dev.db < prisma/seed.sql
+### 2. 配置数据库连接
 
-# 启动开发服务器
+在项目根目录创建 `.env` 文件，填入 Neon 数据库连接字符串：
+
+```env
+DATABASE_URL="postgresql://用户名:密码@xxx.neon.tech/数据库名?sslmode=require"
+```
+
+> 连接字符串从 [Neon 控制台](https://console.neon.tech) → Dashboard → Connection Details 获取。
+> 选择 "Pooled connection" 模式即可。
+
+### 3. 初始化数据库
+
+```bash
+# 生成 Prisma Client
+npx prisma generate
+
+# 执行数据库迁移（建表）
+npx prisma migrate deploy
+
+# 导入种子数据
+psql "你的DATABASE_URL" -f prisma/seed.sql
+```
+
+> 也可以在 Neon 控制台的 SQL Editor 中直接粘贴 `prisma/seed.sql` 内容执行。
+
+### 4. 启动开发服务器
+
+```bash
 npm run dev
 ```
 
@@ -46,27 +74,20 @@ npm run dev
 
 系统会拒绝非法状态转换（如未学习→直接掌握）。
 
-## 数据库切换到 MySQL
+## 部署
 
-1. 修改 `.env`:
-   ```
-   DATABASE_URL="mysql://root:password@localhost:3306/software_test_learning"
-   ```
+项目通过 Vercel 自动部署，推送代码到 `main` 分支即触发构建。
 
-2. 修改 `prisma/schema.prisma`:
-   ```
-   datasource db {
-     provider = "mysql"
-   }
-   ```
+**环境变量配置**（Vercel 项目 Settings → Environment Variables）：
 
-3. 修改 `src/lib/prisma.ts` 使用 MySQL adapter
+| 变量 | 说明 |
+|------|------|
+| `DATABASE_URL` | Neon PostgreSQL 连接字符串 |
 
-4. 重新迁移:
-   ```bash
-   npx prisma migrate dev --name init-mysql
-   sqlite3 dev.db < prisma/seed.sql  # 或用 MySQL 导入
-   ```
+**构建流程**（自动执行）：
+1. `prisma generate` — 生成 Prisma Client
+2. `prisma migrate deploy` — 执行数据库迁移
+3. `next build` — 构建 Next.js 应用
 
 ## 项目结构
 
@@ -89,10 +110,3 @@ prisma/
 ├── migrations/               # 数据库迁移
 └── seed.sql                  # 种子数据
 ```
-
-## 依赖统计
-
-根据 `package.json` 和底层的依赖树统计：
-
-- **直接依赖 (Direct Dependencies)**：共计 **23** 个（其中 `dependencies` 14 个，`devDependencies` 9 个）。包括了核心的 React 19、Next.js 16.2.6、Prisma、TailwindCSS 4 以及 `react-quill` 等。
-- **总依赖树 (Total Packages)**：包含所有子依赖在内，共计约 **1350** 个 npm 模块包。
