@@ -5,7 +5,7 @@
 ## 技术栈
 
 - **前端**: Next.js 16 + React 19 + TypeScript + Tailwind CSS 4
-- **数据库**: PostgreSQL (Neon 云数据库 via Prisma ORM)
+- **数据库**: PostgreSQL (Neon 云数据库 via Prisma 7 + @prisma/adapter-pg)
 - **部署**: Vercel
 
 ## 快速开始
