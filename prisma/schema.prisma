@@ -1,0 +1,150 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model Module {
+  id        Int       @id @default(autoincrement())
+  name      String    @unique
+  icon      String?
+  sortOrder Int       @default(0) @map("sort_order")
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+  knowledge Knowledge[]
+
+  @@map("module")
+}
+
+model Knowledge {
+  id          Int       @id @default(autoincrement())
+  moduleId    Int       @map("module_id")
+  title       String
+  category    String
+  content     String?
+  example     String?
+  status      String    @default("NOT_STARTED")
+  priority    Int       @default(0)
+  createdAt   DateTime  @default(now()) @map("created_at")
+  updatedAt   DateTime  @updatedAt @map("updated_at")
+  module      Module    @relation(fields: [moduleId], references: [id])
+  sources     KnowledgeSource[]
+  interviewQuestions InterviewQuestion[]
+  practiceTasks     PracticeTask[]
+  learningLogs      LearningLog[]
+  tags              KnowledgeTag[]
+
+  @@index([category])
+  @@index([status])
+  @@index([moduleId])
+  @@map("knowledge")
+}
+
+model Source {
+  id          Int       @id @default(autoincrement())
+  type        String
+  url         String?
+  title       String?
+  author      String?
+  description String?
+  createdAt   DateTime  @default(now()) @map("created_at")
+  knowledgeSources KnowledgeSource[]
+
+  @@map("source")
+}
+
+model KnowledgeSource {
+  knowledgeId Int       @map("knowledge_id")
+  sourceId    Int       @map("source_id")
+  createdAt   DateTime  @default(now()) @map("created_at")
+  knowledge   Knowledge @relation(fields: [knowledgeId], references: [id], onDelete: Cascade)
+  source      Source    @relation(fields: [sourceId], references: [id], onDelete: Cascade)
+
+  @@id([knowledgeId, sourceId])
+  @@map("knowledge_source")
+}
+
+model InterviewQuestion {
+  id              Int       @id @default(autoincrement())
+  knowledgeId     Int?      @map("knowledge_id")
+  category        String
+  question        String
+  referenceAnswer String?   @map("reference_answer")
+  myAnswer        String?   @map("my_answer")
+  difficulty      Int       @default(1)
+  status          String    @default("NOT_STARTED")
+  createdAt       DateTime  @default(now()) @map("created_at")
+  updatedAt       DateTime  @updatedAt @map("updated_at")
+  knowledge       Knowledge? @relation(fields: [knowledgeId], references: [id], onDelete: SetNull)
+
+  @@index([category])
+  @@index([status])
+  @@map("interview_question")
+}
+
+model PracticeTask {
+  id              Int       @id @default(autoincrement())
+  knowledgeId     Int?      @map("knowledge_id")
+  title           String
+  content         String?
+  referenceAnswer String?   @map("reference_answer")
+  myAnswer        String?   @map("my_answer")
+  difficulty      Int       @default(1)
+  status          String    @default("PENDING")
+  completedAt     DateTime? @map("completed_at")
+  createdAt       DateTime  @default(now()) @map("created_at")
+  updatedAt       DateTime  @updatedAt @map("updated_at")
+  knowledge       Knowledge? @relation(fields: [knowledgeId], references: [id], onDelete: SetNull)
+
+  @@index([status])
+  @@map("practice_task")
+}
+
+model LearningLog {
+  id          Int       @id @default(autoincrement())
+  knowledgeId Int       @map("knowledge_id")
+  oldStatus   String?   @map("old_status")
+  newStatus   String?   @map("new_status")
+  note        String?
+  createdAt   DateTime  @default(now()) @map("created_at")
+  knowledge   Knowledge @relation(fields: [knowledgeId], references: [id], onDelete: Cascade)
+
+  @@index([knowledgeId])
+  @@map("learning_log")
+}
+
+model Tag {
+  id        Int       @id @default(autoincrement())
+  name      String    @unique
+  createdAt DateTime  @default(now()) @map("created_at")
+  knowledgeTags KnowledgeTag[]
+
+  @@map("tag")
+}
+
+model KnowledgeTag {
+  knowledgeId Int       @map("knowledge_id")
+  tagId       Int       @map("tag_id")
+  knowledge   Knowledge @relation(fields: [knowledgeId], references: [id], onDelete: Cascade)
+  tag         Tag       @relation(fields: [tagId], references: [id], onDelete: Cascade)
+
+  @@id([knowledgeId, tagId])
+  @@map("knowledge_tag")
+}
+
+model Mistake {
+  id        Int       @id @default(autoincrement())
+  title     String
+  category  String    @default("OTHER")
+  content   String?   // Rich text content
+  status    String    @default("REVIEWING") // REVIEWING, RESOLVED
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+
+  @@index([category])
+  @@index([status])
+  @@map("mistake")
+}
