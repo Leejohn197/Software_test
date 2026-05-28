@@ -450,6 +450,7 @@ export type LearningLogCreateOrConnectWithoutKnowledgeInput = {
 
 export type LearningLogCreateManyKnowledgeInputEnvelope = {
   data: Prisma.LearningLogCreateManyKnowledgeInput | Prisma.LearningLogCreateManyKnowledgeInput[]
+  skipDuplicates?: boolean
 }
 
 export type LearningLogUpsertWithWhereUniqueWithoutKnowledgeInput = {
@@ -1239,6 +1240,7 @@ export type LearningLogCreateManyArgs<ExtArgs extends runtime.Types.Extensions.I
    * The data used to create many LearningLogs.
    */
   data: Prisma.LearningLogCreateManyInput | Prisma.LearningLogCreateManyInput[]
+  skipDuplicates?: boolean
 }
 
 /**
@@ -1257,6 +1259,7 @@ export type LearningLogCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Ext
    * The data used to create many LearningLogs.
    */
   data: Prisma.LearningLogCreateManyInput | Prisma.LearningLogCreateManyInput[]
+  skipDuplicates?: boolean
   /**
    * Choose, which related nodes to fetch as well
    */

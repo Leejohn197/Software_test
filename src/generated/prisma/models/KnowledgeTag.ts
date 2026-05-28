@@ -409,6 +409,7 @@ export type KnowledgeTagCreateOrConnectWithoutKnowledgeInput = {
 
 export type KnowledgeTagCreateManyKnowledgeInputEnvelope = {
   data: Prisma.KnowledgeTagCreateManyKnowledgeInput | Prisma.KnowledgeTagCreateManyKnowledgeInput[]
+  skipDuplicates?: boolean
 }
 
 export type KnowledgeTagUpsertWithWhereUniqueWithoutKnowledgeInput = {
@@ -450,6 +451,7 @@ export type KnowledgeTagCreateOrConnectWithoutTagInput = {
 
 export type KnowledgeTagCreateManyTagInputEnvelope = {
   data: Prisma.KnowledgeTagCreateManyTagInput | Prisma.KnowledgeTagCreateManyTagInput[]
+  skipDuplicates?: boolean
 }
 
 export type KnowledgeTagUpsertWithWhereUniqueWithoutTagInput = {
@@ -1212,6 +1214,7 @@ export type KnowledgeTagCreateManyArgs<ExtArgs extends runtime.Types.Extensions.
    * The data used to create many KnowledgeTags.
    */
   data: Prisma.KnowledgeTagCreateManyInput | Prisma.KnowledgeTagCreateManyInput[]
+  skipDuplicates?: boolean
 }
 
 /**
@@ -1230,6 +1233,7 @@ export type KnowledgeTagCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Ex
    * The data used to create many KnowledgeTags.
    */
   data: Prisma.KnowledgeTagCreateManyInput | Prisma.KnowledgeTagCreateManyInput[]
+  skipDuplicates?: boolean
   /**
    * Choose, which related nodes to fetch as well
    */

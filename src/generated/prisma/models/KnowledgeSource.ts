@@ -432,6 +432,7 @@ export type KnowledgeSourceCreateOrConnectWithoutKnowledgeInput = {
 
 export type KnowledgeSourceCreateManyKnowledgeInputEnvelope = {
   data: Prisma.KnowledgeSourceCreateManyKnowledgeInput | Prisma.KnowledgeSourceCreateManyKnowledgeInput[]
+  skipDuplicates?: boolean
 }
 
 export type KnowledgeSourceUpsertWithWhereUniqueWithoutKnowledgeInput = {
@@ -476,6 +477,7 @@ export type KnowledgeSourceCreateOrConnectWithoutSourceInput = {
 
 export type KnowledgeSourceCreateManySourceInputEnvelope = {
   data: Prisma.KnowledgeSourceCreateManySourceInput | Prisma.KnowledgeSourceCreateManySourceInput[]
+  skipDuplicates?: boolean
 }
 
 export type KnowledgeSourceUpsertWithWhereUniqueWithoutSourceInput = {
@@ -1252,6 +1254,7 @@ export type KnowledgeSourceCreateManyArgs<ExtArgs extends runtime.Types.Extensio
    * The data used to create many KnowledgeSources.
    */
   data: Prisma.KnowledgeSourceCreateManyInput | Prisma.KnowledgeSourceCreateManyInput[]
+  skipDuplicates?: boolean
 }
 
 /**
@@ -1270,6 +1273,7 @@ export type KnowledgeSourceCreateManyAndReturnArgs<ExtArgs extends runtime.Types
    * The data used to create many KnowledgeSources.
    */
   data: Prisma.KnowledgeSourceCreateManyInput | Prisma.KnowledgeSourceCreateManyInput[]
+  skipDuplicates?: boolean
   /**
    * Choose, which related nodes to fetch as well
    */

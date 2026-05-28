@@ -681,6 +681,7 @@ export type KnowledgeCreateOrConnectWithoutModuleInput = {
 
 export type KnowledgeCreateManyModuleInputEnvelope = {
   data: Prisma.KnowledgeCreateManyModuleInput | Prisma.KnowledgeCreateManyModuleInput[]
+  skipDuplicates?: boolean
 }
 
 export type KnowledgeUpsertWithWhereUniqueWithoutModuleInput = {
@@ -2021,6 +2022,7 @@ export type KnowledgeCreateManyArgs<ExtArgs extends runtime.Types.Extensions.Int
    * The data used to create many Knowledges.
    */
   data: Prisma.KnowledgeCreateManyInput | Prisma.KnowledgeCreateManyInput[]
+  skipDuplicates?: boolean
 }
 
 /**
@@ -2039,6 +2041,7 @@ export type KnowledgeCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Exten
    * The data used to create many Knowledges.
    */
   data: Prisma.KnowledgeCreateManyInput | Prisma.KnowledgeCreateManyInput[]
+  skipDuplicates?: boolean
   /**
    * Choose, which related nodes to fetch as well
    */

@@ -580,6 +580,7 @@ export type PracticeTaskCreateOrConnectWithoutKnowledgeInput = {
 
 export type PracticeTaskCreateManyKnowledgeInputEnvelope = {
   data: Prisma.PracticeTaskCreateManyKnowledgeInput | Prisma.PracticeTaskCreateManyKnowledgeInput[]
+  skipDuplicates?: boolean
 }
 
 export type PracticeTaskUpsertWithWhereUniqueWithoutKnowledgeInput = {
@@ -1424,6 +1425,7 @@ export type PracticeTaskCreateManyArgs<ExtArgs extends runtime.Types.Extensions.
    * The data used to create many PracticeTasks.
    */
   data: Prisma.PracticeTaskCreateManyInput | Prisma.PracticeTaskCreateManyInput[]
+  skipDuplicates?: boolean
 }
 
 /**
@@ -1442,6 +1444,7 @@ export type PracticeTaskCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Ex
    * The data used to create many PracticeTasks.
    */
   data: Prisma.PracticeTaskCreateManyInput | Prisma.PracticeTaskCreateManyInput[]
+  skipDuplicates?: boolean
   /**
    * Choose, which related nodes to fetch as well
    */

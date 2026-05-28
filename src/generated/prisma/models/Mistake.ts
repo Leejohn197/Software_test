@@ -1085,6 +1085,7 @@ export type MistakeCreateManyArgs<ExtArgs extends runtime.Types.Extensions.Inter
    * The data used to create many Mistakes.
    */
   data: Prisma.MistakeCreateManyInput | Prisma.MistakeCreateManyInput[]
+  skipDuplicates?: boolean
 }
 
 /**
@@ -1103,6 +1104,7 @@ export type MistakeCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensi
    * The data used to create many Mistakes.
    */
   data: Prisma.MistakeCreateManyInput | Prisma.MistakeCreateManyInput[]
+  skipDuplicates?: boolean
 }
 
 /**

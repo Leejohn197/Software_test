@@ -560,6 +560,7 @@ export type InterviewQuestionCreateOrConnectWithoutKnowledgeInput = {
 
 export type InterviewQuestionCreateManyKnowledgeInputEnvelope = {
   data: Prisma.InterviewQuestionCreateManyKnowledgeInput | Prisma.InterviewQuestionCreateManyKnowledgeInput[]
+  skipDuplicates?: boolean
 }
 
 export type InterviewQuestionUpsertWithWhereUniqueWithoutKnowledgeInput = {
@@ -1393,6 +1394,7 @@ export type InterviewQuestionCreateManyArgs<ExtArgs extends runtime.Types.Extens
    * The data used to create many InterviewQuestions.
    */
   data: Prisma.InterviewQuestionCreateManyInput | Prisma.InterviewQuestionCreateManyInput[]
+  skipDuplicates?: boolean
 }
 
 /**
@@ -1411,6 +1413,7 @@ export type InterviewQuestionCreateManyAndReturnArgs<ExtArgs extends runtime.Typ
    * The data used to create many InterviewQuestions.
    */
   data: Prisma.InterviewQuestionCreateManyInput | Prisma.InterviewQuestionCreateManyInput[]
+  skipDuplicates?: boolean
   /**
    * Choose, which related nodes to fetch as well
    */
