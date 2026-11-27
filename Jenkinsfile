@@ -2,11 +2,16 @@
 pipeline {
     agent any
 
+    tools {
+        nodejs 'NodeJS-22'
+    }
+
     options {
         skipDefaultCheckout(true)
     }
 
     stages {
+
         stage('Checkout') {
             steps {
                 echo 'Starting GitHub checkout...'
@@ -15,41 +20,47 @@ pipeline {
 
                 sh '''
                     echo "GitHub checkout successful!"
-
-                    echo "Current commit:"
                     git rev-parse --short HEAD
-
-                    echo "Project files:"
                     ls -la
-
-                    echo "Checking project files..."
-                    test -f package.json
-                    test -f README.md
-
-                    echo "Project files check passed!"
                 '''
             }
         }
 
-        stage('Project Info') {
+        stage('Environment') {
             steps {
-                echo 'Software_test project detected!'
+                echo 'Checking Node.js environment...'
 
                 sh '''
-                    echo "Project name:"
-                    grep '"name"' package.json | head -1
+                    node --version
+                    npm --version
                 '''
+            }
+        }
+
+        stage('Install Dependencies') {
+            steps {
+                echo 'Installing project dependencies...'
+
+                sh 'npm ci'
+            }
+        }
+
+        stage('Code Lint') {
+            steps {
+                echo 'Running ESLint...'
+
+                sh 'npm run lint'
             }
         }
     }
 
     post {
         success {
-            echo 'GitHub CI Pipeline SUCCESS!'
+            echo 'Software_test CI Pipeline SUCCESS!'
         }
 
         failure {
-            echo 'GitHub CI Pipeline FAILED!'
+            echo 'Software_test CI Pipeline FAILED!'
         }
     }
 }
